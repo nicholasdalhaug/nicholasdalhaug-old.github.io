@@ -1,0 +1,18 @@
+#----------------------------------------------------------------------------
+# MISC
+#----------------------------------------------------------------------------
+.*cache
+*.log
+cache/*
+backup
+_files
+log
+log/**/*
+.monitor
+Forwardfile
+
+# NODE
+.node_modules
+node_modules
+*/node_modules
+/node_modules/*

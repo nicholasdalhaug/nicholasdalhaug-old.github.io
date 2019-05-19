@@ -1,0 +1,25 @@
+Blender shortcuts:
+
+
+PANELS
+
+Transform panel: +sign up in the right corner. This panel includes the setting of the background. Useful using top view and orthographic view. 
+
+
+
+MODES
+
+Edit mode: Tab. 
+
+
+
+HOTKEYS
+
+Top view: Numpad 7
+Orthographic view: Numpad 5
+Transform: g. Enables moving the selected vertices. Can also hold down the right mouse button. 
+Extrude: e. Can append vertices. 
+Fill: f. 
+Cirlce select: c. 
+
+The numpad generally handles views. 

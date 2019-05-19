@@ -1,0 +1,27 @@
+{
+  "name": "Custom Fit", 
+  "short_name": "CustomFit", 
+  "start_url": "/index.html", 
+  "display": "standalone", 
+  "background_color": "#4B8BF2", 
+  "theme_color": "#4B8BFF", 
+  "orientation": "portrait-primary", 
+  "icons": [
+    {
+      "src": "/img/logo_gears_drawing_192.png", 
+      "type": "image/png",
+      "sizes": "192x192"
+    }, 
+    {
+      "src": "/img/logo_gears_drawing_512.png", 
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
+
+
+
+
+
+

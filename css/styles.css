@@ -1,0 +1,43 @@
+/* VARIABLES */
+:root{
+  --color-primary: rgba(75, 139, 242, 255);
+}
+
+/* NAVIGATION */
+.cf-navs {
+  background-color: var(--color-primary);
+}
+
+/* OVERVIEW STYLES */
+/*
+cf-overview-panels
+cf-overview-dates
+cf-overview-names
+cf-overview-exercise-lists
+*/
+
+.cf-overview-panels {
+  display: grid;
+  grid-template-columns: 3fr minmax(0, 1fr); /* use minmax here or set minwidth of each element to 0. But this is necessary in order to not hvae overflow. */
+  grid-template-rows: 1fr 3fr;
+  
+  padding: 15px;
+}
+.cf-overview-dates{
+}
+.cf-overview-names{
+  font-size: 1.5rem;
+}
+.cf-overview-exercise-lists{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+
+
+

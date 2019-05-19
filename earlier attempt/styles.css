@@ -1,0 +1,73 @@
+html,
+body {
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+
+body {
+  padding-top: 56px;
+}
+
+
+/*.navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.navbar .navbar-toggler {
+    border-color: rgba(255,255,255, 1);
+}*/
+
+/*.navbar-dark .navbar-nav .nav-link{
+    color: white;
+}*/
+
+@media (max-width: 991.98px) {
+    
+    /*Navbar collapse main div*/
+    .cf-navbar-collapse {
+        position: fixed;
+        /* Height of navbar */
+        top: 56px; 
+        /*top: 0;*/
+        
+        bottom: 0;
+        left: 0%;
+        width: 100%;
+        overflow-y: auto;
+        background-color: rgba(52, 58, 64, 0.74);
+        
+        visibility: hidden;
+        transition-timing-function: ease-in-out;
+        transition-duration: 0.2s;
+        transition-property: visibility;
+    }
+    .cf-navbar-collapse.open {
+        visibility: visible;
+    }
+    
+    /*Navbar collapse list*/
+    .cf-navbar-collapse .navbar-nav {
+        padding: 1rem;
+        height: 100%;
+        width: 0%;
+        
+        transition-timing-function: linear;
+        transition-duration: 0.3s;
+        transition-property: width;
+        float: left;
+    }
+    .cf-navbar-collapse .navbar-nav.open {
+        width: 50%;
+    }
+    
+    /*Navbar collapse on click closing div*/
+    .cf-navbar-collapse-closer {
+        height: 100%;
+        width: 50%;
+        float: right;
+    }
+}
+
+
+
+
+
