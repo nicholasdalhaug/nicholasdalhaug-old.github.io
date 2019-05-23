@@ -7,6 +7,9 @@
 .cf-navs {
   background-color: var(--color-primary);
 }
+.cf-sidenav-images{
+ width: 50%; 
+}
 
 /* OVERVIEW STYLES */
 /*
