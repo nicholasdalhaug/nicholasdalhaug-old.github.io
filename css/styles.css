@@ -1,12 +1,14 @@
 /* VARIABLES */
 :root{
+/*
   --color-primary: rgba(75, 139, 242, 255);
   --color-secondary: rgba(100, 180, 255, 255);
+*/
 }
 
 /* NAVIGATION */
 .cf-navs {
-  background-color: var(--color-primary);
+/*  background-color: var(--color-primary);*/
 }
 .cf-sidenav-images{
  width: 40%; 
