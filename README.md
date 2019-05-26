@@ -11,6 +11,7 @@ The app is best suited for people that do pure strength workouts regularly. Each
 * Number of sets
 * Weight
 * Increment of weight from one workout to the next of the same rutine
+
 Each rutine has: 
 * Rutine name
 * List of exercises
