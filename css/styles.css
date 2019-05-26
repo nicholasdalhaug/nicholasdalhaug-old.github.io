@@ -1,6 +1,7 @@
 /* VARIABLES */
 :root{
   --color-primary: rgba(75, 139, 242, 255);
+  --color-secondary: rgba(100, 180, 255, 255);
 }
 
 /* NAVIGATION */
@@ -39,6 +40,11 @@ cf-overview-exercise-lists
   
   margin: 0;
   font-size: 0.8rem;
+}
+
+/* FALLBACK STYLES */
+.cf-fallback-btns {
+/*  background-color: var(--color-primary);*/
 }
 
 

@@ -5,6 +5,7 @@
 const staticCacheName = 'site-static-v1';
 const staticCacheAssets = [
   '/', 
+  '/pages/fallback.html', 
   '/index.html', 
   '/manifest.json', 
   '/js/app.js', 
@@ -38,10 +39,10 @@ self.addEventListener('activate', evt => {
   
   evt.waitUntil(
     
-    // Remove non-static caches
+    // Remove unused caches
     caches.keys().then(cacheNames => {
       return Promise.all(cacheNames
-        .filter(cacheName => cacheName !== staticCacheName)
+        .filter(cacheName => cacheName !== staticCacheName && cacheName !== dynamicCacheName)
         .map(cacheName => caches.delete(cacheName))
       )
     })
@@ -54,11 +55,15 @@ self.addEventListener('fetch', evt => {
   evt.respondWith(
     caches.match(evt.request).then(cacheResponse => {
       return cacheResponse || fetch(evt.request).then(fetchResponse => {
+        if( !fetchResponse.ok ) {
+          throw Error(fetchResponse.statusText);
+        }
+        
         return caches.open(dynamicCacheName).then(cache => {
           cache.put(evt.request.url, fetchResponse.clone());
           return fetchResponse;
         });
-      });
+      }).catch(() => caches.match('/pages/fallback.html'))
     })
     
     
