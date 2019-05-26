@@ -2,7 +2,7 @@
 * Consider Workbox for pre-made service workers. 
 
 */
-const staticCacheName = 'site-static';
+const staticCacheName = 'site-static-v1';
 const staticCacheAssets = [
   '/', 
   '/index.html', 
@@ -14,19 +14,20 @@ const staticCacheAssets = [
   '/css/styles.css', 
   'https://fonts.googleapis.com/icon?family=Material+Icons',
 ];
+const dynamicCacheName = 'site-dynamic-v1';
 
 // install service worker
 self.addEventListener('install', evt => {
   console.log('service worker has been installed');
   
   evt.waitUntil(
+    
+    // Cache static assets
     caches
-      .open(staticCacheName)
-      .then(cache => {
-//        console.log('caching static assets');
-        cache.addAll(staticCacheAssets);
-      })
-//      .then( () => self.skipWaiting())
+    .open(staticCacheName)
+    .then(cache => {
+      cache.addAll(staticCacheAssets);
+    })
   );
   
 });
@@ -37,7 +38,7 @@ self.addEventListener('activate', evt => {
   
   evt.waitUntil(
     
-    // Remove caches
+    // Remove non-static caches
     caches.keys().then(cacheNames => {
       return Promise.all(cacheNames
         .filter(cacheName => cacheName !== staticCacheName)
@@ -50,28 +51,69 @@ self.addEventListener('activate', evt => {
 
 // fetch event
 self.addEventListener('fetch', evt => {
-//  console.log('fetch event', evt);
   evt.respondWith(
-    fetch(evt.request)
-    .then(response => {
-//      console.log('Request: ', evt.request);
-      const responseClone = response.clone();
-      caches
-      .open(staticCacheName)
-      .then(cache => {
-        cache.put(evt.request, responseClone);
-//        console.log('Putting response to cache:', responseClone);
-      });
-      return response;
-    })
-    .catch( err => {
-//      console.log('Getting content from cache')
-      return caches.match(evt.request)
-      .then(response => response)
-      .catch(err => {
-//        console.log('Could not match to cache: ', evt.request);
+    caches.match(evt.request).then(cacheResponse => {
+      return cacheResponse || fetch(evt.request).then(fetchResponse => {
+        return caches.open(dynamicCacheName).then(cache => {
+          cache.put(evt.request.url, fetchResponse.clone());
+          return fetchResponse;
+        });
       });
     })
+    
+    
+    
+    
+//    // Cache first, then fetch
+//    caches.match(evt.request)
+//    .then(cacheResponse => {
+//      if( cacheResponse ) {
+//        return cacheResponse;
+//      }
+//      
+//      // No such request in cache, do a fetch
+////      console.log('No such request stored: ', evt.request);
+//      return fetch(evt.request)
+//      .then(fetchResponse => {
+//        
+//        return 
+//        caches.open(dynamicCacheName)
+//        .then(cache => {
+//          cache.put(evt.request.url, fetchResponse.clone());
+//          return fetchResponse;
+//        });
+//      });
+//    })
+//    .catch( err => {
+//      console.log('Cache match gave an error: ', err);
+//    })
+    
+    
+    
+    
+    
+    
+    
+    // Fetch first, then cache
+//    fetch(evt.request)
+//    .then(response => {
+//      const responseClone = response.clone();
+//      caches
+//      .open(dynamicCacheName)
+//      .then(cache => {
+//        cache.put(evt.request, responseClone);
+////        console.log('Putting response to cache:', responseClone);
+//      });
+//      return response;
+//    })
+//    .catch( err => {
+////      console.log('Getting content from cache')
+//      return caches.match(evt.request)
+//      .then(response => response)
+//      .catch(err => {
+////        console.log('Could not match to cache: ', evt.request);
+//      });
+//    })
   );
 });
 
