@@ -2,7 +2,8 @@
 * Consider Workbox for pre-made service workers. 
 
 */
-const staticCacheName = 'site-static-v1';
+const staticCacheName =   'site-static-v2';
+const dynamicCacheName =  'site-dynamic-v2';
 const staticCacheAssets = [
   '/', 
   '/pages/fallback.html', 
@@ -15,7 +16,6 @@ const staticCacheAssets = [
   '/css/styles.css', 
   'https://fonts.googleapis.com/icon?family=Material+Icons',
 ];
-const dynamicCacheName = 'site-dynamic-v1';
 
 // install service worker
 self.addEventListener('install', evt => {
