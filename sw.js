@@ -2,8 +2,9 @@
 * Consider Workbox for pre-made service workers. 
 
 */
-const staticCacheName =   'site-static-v2';
-const dynamicCacheName =  'site-dynamic-v2';
+const staticCacheName =   'site-static-v1';
+const dynamicCacheName =  'site-dynamic-v1';
+//const dynamicCacheSize = 3;
 const staticCacheAssets = [
   '/', 
   '/pages/fallback.html', 
@@ -16,6 +17,17 @@ const staticCacheAssets = [
   '/css/styles.css', 
   'https://fonts.googleapis.com/icon?family=Material+Icons',
 ];
+
+//// Cahce size limit function
+//const limitCacheSize = (name, size) => {
+//  caches.open(name).then(cache => {
+//    cache.keys().then(keys => {
+//      if(keys.length > size){
+//        cache.delete(keys[0]).then(limitCacheSize(name, size));
+//      }
+//    })
+//  })
+//};
 
 // install service worker
 self.addEventListener('install', evt => {
@@ -52,74 +64,31 @@ self.addEventListener('activate', evt => {
 
 // fetch event
 self.addEventListener('fetch', evt => {
-  evt.respondWith(
-    caches.match(evt.request).then(cacheResponse => {
-      return cacheResponse || fetch(evt.request).then(fetchResponse => {
-        if( !fetchResponse.ok ) {
-          throw Error(fetchResponse.statusText);
-        }
-        
-        return caches.open(dynamicCacheName).then(cache => {
-          cache.put(evt.request.url, fetchResponse.clone());
-          return fetchResponse;
-        });
-      }).catch(() => caches.match('/pages/fallback.html'))
-    })
-    
-    
-    
-    
-//    // Cache first, then fetch
-//    caches.match(evt.request)
-//    .then(cacheResponse => {
-//      if( cacheResponse ) {
-//        return cacheResponse;
-//      }
-//      
-//      // No such request in cache, do a fetch
-////      console.log('No such request stored: ', evt.request);
-//      return fetch(evt.request)
-//      .then(fetchResponse => {
-//        
-//        return 
-//        caches.open(dynamicCacheName)
-//        .then(cache => {
-//          cache.put(evt.request.url, fetchResponse.clone());
-//          return fetchResponse;
-//        });
-//      });
-//    })
-//    .catch( err => {
-//      console.log('Cache match gave an error: ', err);
-//    })
-    
-    
-    
-    
-    
-    
-    
-    // Fetch first, then cache
-//    fetch(evt.request)
-//    .then(response => {
-//      const responseClone = response.clone();
-//      caches
-//      .open(dynamicCacheName)
-//      .then(cache => {
-//        cache.put(evt.request, responseClone);
-////        console.log('Putting response to cache:', responseClone);
-//      });
-//      return response;
-//    })
-//    .catch( err => {
-////      console.log('Getting content from cache')
-//      return caches.match(evt.request)
-//      .then(response => response)
-//      .catch(err => {
-////        console.log('Could not match to cache: ', evt.request);
-//      });
-//    })
-  );
+  // Do not include requests to google firestore
+  if(!evt.request.url.includes('firestore.googleapis.com')){
+    evt.respondWith(
+      caches.match(evt.request).then(cacheResponse => {
+        return cacheResponse || fetch(evt.request).then(fetchResponse => {
+          if( !fetchResponse.ok ) {
+            throw Error(fetchResponse.statusText);
+          }
+
+          return caches.open(dynamicCacheName).then(cache => {
+            cache.put(evt.request.url, fetchResponse.clone());
+  //          limitCacheSize(dynamicCacheName, dynamicCacheSize);
+            return fetchResponse;
+          });
+        }).catch(() => {
+            if(evt.request.url.indexOf('.html') > -1){
+              return caches.match('/pages/fallback.html');
+            }
+            else { // If it is not html, return the response. Is usable in the case of firestore. 
+              return fetch(evt.request);
+            }
+        })
+      })
+    );
+  }
 });
 
 
