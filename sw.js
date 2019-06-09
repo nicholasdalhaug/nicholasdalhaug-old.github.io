@@ -2,9 +2,8 @@
 * Consider Workbox for pre-made service workers. 
 
 */
-const staticCacheName =   'site-static-v8';
-const dynamicCacheName =  'site-dynamic-v8';
-//const dynamicCacheSize = 3;
+const cfCache =   'cf-cache-v2';
+
 const staticCacheAssets = [
   '/', 
   '/pages/fallback.html', 
@@ -22,17 +21,6 @@ const staticCacheAssets = [
   '/js/exercises.js',
 ];
 
-//// Cahce size limit function
-//const limitCacheSize = (name, size) => {
-//  caches.open(name).then(cache => {
-//    cache.keys().then(keys => {
-//      if(keys.length > size){
-//        cache.delete(keys[0]).then(limitCacheSize(name, size));
-//      }
-//    })
-//  })
-//};
-
 // install service worker
 self.addEventListener('install', evt => {
   console.log('service worker has been installed');
@@ -41,7 +29,7 @@ self.addEventListener('install', evt => {
     
     // Cache static assets
     caches
-    .open(staticCacheName)
+    .open(cfCache)
     .then(cache => {
       cache.addAll(staticCacheAssets);
     })
@@ -58,9 +46,9 @@ self.addEventListener('activate', evt => {
     // Remove unused caches
     caches.keys().then(cacheNames => {
       return Promise.all(cacheNames
-        .filter(cacheName => cacheName !== staticCacheName && cacheName !== dynamicCacheName)
+        .filter(cacheName => cacheName !== cfCache)
         .map(cacheName => caches.delete(cacheName))
-      )
+      );
     })
   );
   
@@ -75,26 +63,30 @@ self.addEventListener('fetch', evt => {
       
       fetch(evt.request)
       .then(fetchResponse => {
-        if( !fetchResponse.ok ) {
-          console.log(evt.request);
-          console.log(fetchResponse.clone());
+        if(fetchResponse.status == 404){
+          // Not a network error, but page not found
           throw Error(fetchResponse.statusText);
         }
-
-        return caches.open(dynamicCacheName).then(cache => {
+        return caches.open(cfCache)
+        .then(cache => {
           cache.put(evt.request.url, fetchResponse.clone());
           return fetchResponse;
         });
       })
-      .catch(() => { // 
-        if(evt.request.url.indexOf('.html') > -1){
-          return caches.match('/pages/fallback.html');
-        }
-        else { // If it is not html, return the response. Is usable in the case of firestore. 
-          return fetch(evt.request);
-        }
-        
-        // caches.match(evt.request).then(cacheResponse
+      .catch(() => { 
+        // Fetch goes here when network error. But after throwing above it also does it when page not found. 
+        return caches.match(evt.request)
+        .then(cacheResponse => {
+          if(cacheResponse){
+            return cacheResponse;
+          }
+          else if(evt.request.url.includes('.html')){
+            return caches.match('/pages/fallback.html');
+          }
+          else { // Could not fetch response and did not have it in cache
+            return fetch(evt.request);
+          }
+        });
       })
       
     );
