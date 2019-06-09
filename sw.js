@@ -68,32 +68,68 @@ self.addEventListener('activate', evt => {
 
 // fetch event
 self.addEventListener('fetch', evt => {
-  // Do not include requests to google firestore
-  if(!evt.request.url.includes('firestore.googleapis.com')){
+  
+  if(!evt.request.url.includes('firestore.googleapis.com')){ // Always fetch online requests to google firestore
+    
     evt.respondWith(
-      caches.match(evt.request).then(cacheResponse => {
-        return cacheResponse || fetch(evt.request).then(fetchResponse => {
-          if( !fetchResponse.ok ) {
-            throw Error(fetchResponse.statusText);
-          }
+      
+      fetch(evt.request)
+      .then(fetchResponse => {
+        if( !fetchResponse.ok ) {
+          console.log(evt.request);
+          console.log(fetchResponse.clone());
+          throw Error(fetchResponse.statusText);
+        }
 
-          return caches.open(dynamicCacheName).then(cache => {
-            cache.put(evt.request.url, fetchResponse.clone());
-  //          limitCacheSize(dynamicCacheName, dynamicCacheSize);
-            return fetchResponse;
-          });
-        }).catch(() => {
-            if(evt.request.url.indexOf('.html') > -1){
-              return caches.match('/pages/fallback.html');
-            }
-            else { // If it is not html, return the response. Is usable in the case of firestore. 
-              return fetch(evt.request);
-            }
-        })
+        return caches.open(dynamicCacheName).then(cache => {
+          cache.put(evt.request.url, fetchResponse.clone());
+          return fetchResponse;
+        });
       })
+      .catch(() => { // 
+        if(evt.request.url.indexOf('.html') > -1){
+          return caches.match('/pages/fallback.html');
+        }
+        else { // If it is not html, return the response. Is usable in the case of firestore. 
+          return fetch(evt.request);
+        }
+        
+        // caches.match(evt.request).then(cacheResponse
+      })
+      
     );
+    
   }
 });
+
+//// fetch event. Working cache first
+//self.addEventListener('fetch', evt => {
+//  // Do not include requests to google firestore
+//  if(!evt.request.url.includes('firestore.googleapis.com')){
+//    evt.respondWith(
+//      caches.match(evt.request).then(cacheResponse => {
+//        return cacheResponse || fetch(evt.request).then(fetchResponse => {
+//          if( !fetchResponse.ok ) {
+//            throw Error(fetchResponse.statusText);
+//          }
+//
+//          return caches.open(dynamicCacheName).then(cache => {
+//            cache.put(evt.request.url, fetchResponse.clone());
+//  //          limitCacheSize(dynamicCacheName, dynamicCacheSize);
+//            return fetchResponse;
+//          });
+//        }).catch(() => {
+//            if(evt.request.url.indexOf('.html') > -1){
+//              return caches.match('/pages/fallback.html');
+//            }
+//            else { // If it is not html, return the response. Is usable in the case of firestore. 
+//              return fetch(evt.request);
+//            }
+//        })
+//      })
+//    );
+//  }
+//});
 
 
 
