@@ -6,6 +6,27 @@
 */
 }
 
+
+
+
+
+
+
+/* GENERAL */
+.bold {
+  font-weight: bold;
+}
+
+.cf-preloaders{
+  padding: 10px;
+}
+
+
+
+
+
+
+
 /* NAVIGATION */
 .cf-navs {
 /*  background-color: var(--color-primary);*/
@@ -13,6 +34,14 @@
 .cf-sidenav-images{
  width: 40%; 
 }
+
+
+
+
+
+
+
+
 
 /* OVERVIEW STYLES */
 /*
@@ -44,9 +73,38 @@ cf-overview-exercise-lists
   font-size: 0.8rem;
 }
 
+
+
+
+
+
+
+
 /* FALLBACK STYLES */
 .cf-fallback-btns {
 /*  background-color: var(--color-primary);*/
+}
+
+
+
+
+
+
+
+/* EXERCISES */
+.cf-exercises-panels{
+  padding: 15px;
+}
+.cf-exercises-names{
+  font-size: 1.5rem;
+}
+.cf-exercises-settings{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+}
+.cf-exercises-settings div{
+/*  overflow: hidden;*/
+/*  box-sizing: content-box;*/
 }
 
 

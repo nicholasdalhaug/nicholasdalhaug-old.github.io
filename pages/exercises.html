@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Custom Fit - Fallback</title>
+  <title>Custom Fit - Exercises</title>
   
   <!-- materialize icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -38,7 +38,7 @@
         <i class="material-icons">menu</i>
       </a>
       
-      <a class="brand-logo" href="/">Fallback</a>
+      <a class="brand-logo" href="/">Exercises</a>
       
       <ul class="right hide-on-med-and-down"> <!-- hide-on-med-and-down corresponds to disappearence of menu bars -->
         <li><a href="/index.html">Overview</a></li>
@@ -69,15 +69,23 @@
   
   
   
-  <main class="container grey-text text-darken-1">
+  <main class="exercises container grey-text text-darken-1">
     
     <!-- CONTENT -->
-    <div class="center-align">
-      <h5>Content not available</h5>
-      <p>This page does not seem to be available. </p>
-      <a href="/" class="btn-small blue cf-fallback-btns">Overview</a>
+    <div class="cf-preloaders center-align">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
     </div>
-    
+
   </main>
   
   
@@ -121,6 +129,9 @@
   <script src="/js/db.js"></script>
   <script src="/js/ui.js"></script>
   
+  
+  <!-- Page specific script -->
+  <script src="/js/exercises.js"></script>
   
   
   

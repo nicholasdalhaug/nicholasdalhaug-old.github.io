@@ -2,8 +2,8 @@
 * Consider Workbox for pre-made service workers. 
 
 */
-const staticCacheName =   'site-static-v1';
-const dynamicCacheName =  'site-dynamic-v1';
+const staticCacheName =   'site-static-v8';
+const dynamicCacheName =  'site-dynamic-v8';
 //const dynamicCacheSize = 3;
 const staticCacheAssets = [
   '/', 
@@ -12,10 +12,14 @@ const staticCacheAssets = [
   '/manifest.json', 
   '/js/app.js', 
   '/js/ui.js', 
+  '/js/db.js', 
   '/css/materialize.min.css', 
   '/js/materialize.min.js', 
   '/css/styles.css', 
+  '/img/logo_gears_drawing_192.png',
   'https://fonts.googleapis.com/icon?family=Material+Icons',
+  '/pages/exercises.html', 
+  '/js/exercises.js',
 ];
 
 //// Cahce size limit function

@@ -14,18 +14,27 @@ db.enablePersistence()
 
 
 
-// real-time listener
-db.collection('exercises').onSnapshot( (snapshot) => {
-//  console.log(snapshot.docChanges());
-  snapshot.docChanges().forEach( (change) => {
-    console.log(change, change.doc.data(), change.doc.id);
-    if(change.type === 'added'){
-      
-    }
-    else if(change.type === 'removed'){
-      
-    }
+//// real-time listener
+//db.collection('exercises').onSnapshot( (snapshot) => {
+////  console.log(snapshot.docChanges());
+//  snapshot.docChanges().forEach( (change) => {
+//    console.log(change, change.doc.data(), change.doc.id);
+//    if(change.type === 'added'){
+//      
+//    }
+//    else if(change.type === 'removed'){
+//      
+//    }
+//  });
+//});
+
+
+function dbGet(collectionName, documentFunction){
+  return db.collection(collectionName).get().then( snapshot => {
+    snapshot.forEach( (doc) => {
+      documentFunction(doc.id, doc.data());
+//      console.log(`${doc.id} => ${doc.data()}`);
+//      console.log(doc.data());
+    });
   });
-});
-
-
+}

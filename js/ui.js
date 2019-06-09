@@ -12,9 +12,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-db.collection('exercises').get().then( snapshot => {
-  snapshot.forEach( (doc) => {
-    console.log(`${doc.id} => ${doc.data()}`);
-    console.log(doc.data());
-  });
-});
