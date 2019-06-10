@@ -22,9 +22,9 @@ function displayExercise(id, data) {
 
 dbGet('exercises', displayExercise)
 .then( () => {
+  document.querySelector('.cf-add-buttons').style.display = 'block';
   document.querySelector('.cf-preloaders').style.display = 'none';
 });
-
 
 
 

@@ -69,7 +69,7 @@
   
   
   
-  <main class="exercises container grey-text text-darken-1">
+  <main class="container grey-text text-darken-1">
     
     <!-- CONTENT -->
     <div class="cf-preloaders center-align">
@@ -84,6 +84,72 @@
           </div>
         </div>
       </div>
+    </div>
+    
+    <div class="exercises">
+    
+    </div>
+    
+    <div class="cf-add-buttons center-align" style="display: none;">
+      <a class="btn-floating waves-effect waves-light blue sidenav-trigger" data-target="cf-exercise-form">
+        <i class="material-icons">add</i>
+      </a>
+    </div>
+    
+    <div id="cf-exercise-form" class="sidenav">
+      <form class="container section cf-forms row">
+        <h5>Exercise</h5>
+        <div class="divider"></div>
+        <div class="input-field col s12">
+          <input id="cf-name" type="text" class="validate" maxlength="99" required>
+          <label for="cf-name">Name</label>
+          <span class="helper-text" data-error="Name must have length between 1 and 99" data-success=""></span>
+        </div>
+        <div class="input-field col s12">
+          <input id="cf-reps" type="number" class="validate" min="1" max="99" step="1" required>
+          <label for="cf-reps">Reps</label>
+          <span class="helper-text" data-error="Should be between 1 and 99" data-success=""></span>
+        </div>
+        <div class="input-field col s12">
+          <input id="cf-sets" type="number" class="validate" min="1" max="12" step="1" required>
+          <label for="cf-sets">Sets</label>
+          <span class="helper-text" data-error="Should be between 1 and 12" data-success=""></span>
+        </div>
+        <div class="input-field col s6">
+          <select id="cf-pause-minutes">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+          <label for="cf-pause-minutes">Pause minutes</label>
+        </div>
+        <div class="input-field col s6">
+          <select id="cf-pause-seconds">
+            <option value="0">0</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+            <option value="45">45</option>
+          </select>
+          <label for="cf-pause-seconds">Pause seconds</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="cf-increment" type="text" class="validate" min="0" max="10" step="0.25" required>
+          <label for="cf-increment">Increment</label>
+          <span class="helper-text" data-error="Should be between 0 and 10 with steps of 0.25" data-success=""></span>
+        </div>
+        <div class="input-field col s12">
+          <input id="cf-weight" type="text" class="validate" min="1" max="999" step="0.25" required>
+          <label for="cf-weight">Weight</label>
+          <span class="helper-text" data-error="Should be between 1 and 999 with steps of 0.25" data-success=""></span>
+        </div>
+        <div class="input-field col s12 center-align">
+          <button class="btn-small blue">Add</button>
+        </div>
+      </form>
     </div>
 
   </main>
