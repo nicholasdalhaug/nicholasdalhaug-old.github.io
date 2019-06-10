@@ -49,34 +49,6 @@ new_exercise_button.addEventListener('click', evt=>{
 
 
 
-// add new exercise when button pressed
-const add_new_exercise_button = document.querySelector('.cf-exercise-form-new-buttons button');
-add_new_exercise_button.addEventListener('click', evt => {
-  
-  name_string =           document.getElementById('cf-exercise-form-name').value;
-  reps_string =           document.getElementById('cf-exercise-form-reps').value;
-  sets_string =           document.getElementById('cf-exercise-form-sets').value;
-  pause_minutes_string =  document.getElementById('cf-exercise-form-pause-minutes').value;
-  pause_seconds_string =  document.getElementById('cf-exercise-form-pause-seconds').value;
-  increment_string =      document.getElementById('cf-exercise-form-increment').value;
-  weight_string =         document.getElementById('cf-exercise-form-weight').value;
-  
-  const exercise = {
-    name: name_string, 
-    reps: parseInt(reps_string), 
-    sets: parseInt(sets_string), 
-    pause: parseInt(pause_minutes_string)*60 + parseInt(pause_seconds_string), 
-    increment: parseFloat(increment_string),
-    weight: parseFloat(weight_string)
-  };
-  
-  dbAdd('exercises', exercise);
-  
-});
-
-
-
-
 // open edit exercise form
 const exercisesContainer = document.querySelector('.cf-exercises');
 exercisesContainer.addEventListener('click', evt=>{
@@ -129,39 +101,72 @@ exercisesContainer.addEventListener('click', evt=>{
   }
 });
 
+
+
+
+
+
+
+const form = document.querySelector('.cf-forms');
+form.addEventListener('submit', evt => {
+  if(form.clickedOn == 'cf-exercise-form-exists-buttons-delete') {
+    const id = document.querySelector('.cf-exercise-form-exists-buttons').id;
+    dbDelete('exercises', id);
+  }
+  else{
+    name_string =           document.getElementById('cf-exercise-form-name').value;
+    reps_string =           document.getElementById('cf-exercise-form-reps').value;
+    sets_string =           document.getElementById('cf-exercise-form-sets').value;
+    pause_minutes_string =  document.getElementById('cf-exercise-form-pause-minutes').value;
+    pause_seconds_string =  document.getElementById('cf-exercise-form-pause-seconds').value;
+    increment_string =      document.getElementById('cf-exercise-form-increment').value;
+    weight_string =         document.getElementById('cf-exercise-form-weight').value;
+
+    const exercise = {
+      name: name_string, 
+      reps: parseInt(reps_string), 
+      sets: parseInt(sets_string), 
+      pause: parseInt(pause_minutes_string)*60 + parseInt(pause_seconds_string), 
+      increment: parseFloat(increment_string),
+      weight: parseFloat(weight_string)
+    };
+    
+    if(form.clickedOn == 'cf-exercise-form-new-buttons'){
+      dbAdd('exercises', exercise);
+    }
+    else if(form.clickedOn == 'cf-exercise-form-exists-buttons-update'){
+      const exists_buttons_wrapper = document.querySelector('.cf-exercise-form-exists-buttons');
+      const id = exists_buttons_wrapper.id;
+      
+      dbEdit('exercises', id, exercise);
+    }
+    else{
+      console.log('No button corresponds to ', form.clickedOn);
+    }
+  }
+});
+
+// add new exercise when button pressed
+const add_new_exercise_button = document.querySelector('.cf-exercise-form-new-buttons button');
+add_new_exercise_button.addEventListener('click', evt => {
+  form.clickedOn = 'cf-exercise-form-new-buttons';
+});
+
 // update exercise when button pressed
 const update_exercise_button = document.querySelector('.cf-exercise-form-exists-buttons-update');
 update_exercise_button.addEventListener('click', evt => {
-  const exists_buttons_wrapper = document.querySelector('.cf-exercise-form-exists-buttons');
-  const id = exists_buttons_wrapper.id;
-  
-  name_string =           document.getElementById('cf-exercise-form-name').value;
-  reps_string =           document.getElementById('cf-exercise-form-reps').value;
-  sets_string =           document.getElementById('cf-exercise-form-sets').value;
-  pause_minutes_string =  document.getElementById('cf-exercise-form-pause-minutes').value;
-  pause_seconds_string =  document.getElementById('cf-exercise-form-pause-seconds').value;
-  increment_string =      document.getElementById('cf-exercise-form-increment').value;
-  weight_string =         document.getElementById('cf-exercise-form-weight').value;
-  
-  const exercise = {
-    name: name_string, 
-    reps: parseInt(reps_string), 
-    sets: parseInt(sets_string), 
-    pause: parseInt(pause_minutes_string)*60 + parseInt(pause_seconds_string), 
-    increment: parseFloat(increment_string),
-    weight: parseFloat(weight_string)
-  };
-  
-  dbEdit('exercises', id, exercise);
-  
+  form.clickedOn = 'cf-exercise-form-exists-buttons-update';
 });
 
 // delete exercise when button pressed
 const delete_exercise_button = document.querySelector('.cf-exercise-form-exists-buttons-delete');
 delete_exercise_button.addEventListener('click', evt => {
-  const id = document.querySelector('.cf-exercise-form-exists-buttons').id;
-  dbDelete('exercises', id);
+  form.clickedOn = 'cf-exercise-form-exists-buttons-delete';
 });
+
+
+
+
 
 
 
