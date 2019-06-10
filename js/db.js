@@ -11,9 +11,6 @@ db.enablePersistence()
   }
 });
 
-
-
-
 //// real-time listener
 //db.collection('exercises').onSnapshot( (snapshot) => {
 ////  console.log(snapshot.docChanges());
@@ -28,8 +25,9 @@ db.enablePersistence()
 //  });
 //});
 
-
-function dbGet(collectionName, documentFunction){
+// function to get values from database.
+// * documentFunction(id, data) used for each document
+function dbGetAll(collectionName, documentFunction){
   return db.collection(collectionName).get().then( snapshot => {
     snapshot.forEach( (doc) => {
       documentFunction(doc.id, doc.data());
@@ -38,3 +36,45 @@ function dbGet(collectionName, documentFunction){
     });
   });
 }
+
+function dbGet(collectionName, documentID){
+  var docRef = db.collection(collectionName).doc(documentID);
+  return docRef.get()
+  .then( doc => {
+    if(doc.exists){
+      return doc.data();
+    }
+    else{
+      console.log('No such doc exists');
+      return null;
+    }
+  })
+  .catch( err => {
+    console.log('Error getting document');
+    return null;
+  });
+}
+
+// Add new document
+function dbAdd(collectionName, document2add){
+  return db.collection(collectionName).add(document2add)
+  .catch( err => {
+    console.log(err);
+  });
+}
+
+function dbEdit(collectionName, documentID, newDocument){
+  return db.collection(collectionName).doc(documentID).set(newDocument)
+  .catch( err => {
+    console.log(err);
+  });
+}
+
+// Delete document
+function dbDelete(collectionName, documentID){
+  return db.collection(collectionName).doc(documentID).delete();
+}
+
+
+
+

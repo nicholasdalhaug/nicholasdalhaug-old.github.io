@@ -28,7 +28,15 @@
 
 
 
-/* FORMS */
+
+/* FORMS GENERAL */
+.cf-forms .input-field {
+  margin-bottom: 0;
+}
+
+
+
+/* FORMS COLORS */
 /* label color */
 /*
 .cf-forms .input-field label {

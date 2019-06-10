@@ -86,12 +86,12 @@
       </div>
     </div>
     
-    <div class="exercises">
+    <div class="cf-exercises">
     
     </div>
     
     <div class="cf-add-buttons center-align" style="display: none;">
-      <a class="btn-floating waves-effect waves-light blue sidenav-trigger" data-target="cf-exercise-form">
+      <a class="btn-floating waves-effect waves-light blue cf-sidenav-triggers" data-target="cf-exercise-form">
         <i class="material-icons">add</i>
       </a>
     </div>
@@ -101,22 +101,22 @@
         <h5>Exercise</h5>
         <div class="divider"></div>
         <div class="input-field col s12">
-          <input id="cf-name" type="text" class="validate" maxlength="99" required>
-          <label for="cf-name">Name</label>
+          <input id="cf-exercise-form-name" type="text" class="validate" maxlength="99" required>
+          <label for="cf-exercise-form-name">Name</label>
           <span class="helper-text" data-error="Name must have length between 1 and 99" data-success=""></span>
         </div>
         <div class="input-field col s12">
-          <input id="cf-reps" type="number" class="validate" min="1" max="99" step="1" required>
-          <label for="cf-reps">Reps</label>
+          <input id="cf-exercise-form-reps" type="number" class="validate" min="1" max="99" step="1" required>
+          <label for="cf-exercise-form-reps">Reps</label>
           <span class="helper-text" data-error="Should be between 1 and 99" data-success=""></span>
         </div>
         <div class="input-field col s12">
-          <input id="cf-sets" type="number" class="validate" min="1" max="12" step="1" required>
-          <label for="cf-sets">Sets</label>
+          <input id="cf-exercise-form-sets" type="number" class="validate" min="1" max="12" step="1" required>
+          <label for="cf-exercise-form-sets">Sets</label>
           <span class="helper-text" data-error="Should be between 1 and 12" data-success=""></span>
         </div>
         <div class="input-field col s6">
-          <select id="cf-pause-minutes">
+          <select id="cf-exercise-form-pause-minutes">
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -125,29 +125,39 @@
             <option value="5">5</option>
             <option value="6">6</option>
           </select>
-          <label for="cf-pause-minutes">Pause minutes</label>
+          <label for="cf-exercise-form-pause-minutes">Pause minutes</label>
         </div>
         <div class="input-field col s6">
-          <select id="cf-pause-seconds">
+          <select id="cf-exercise-form-pause-seconds">
             <option value="0">0</option>
             <option value="15">15</option>
             <option value="30">30</option>
             <option value="45">45</option>
           </select>
-          <label for="cf-pause-seconds">Pause seconds</label>
+          <label for="cf-exercise-form-pause-seconds">Pause seconds</label>
         </div>
         <div class="input-field col s12">
-          <input id="cf-increment" type="text" class="validate" min="0" max="10" step="0.25" required>
-          <label for="cf-increment">Increment</label>
+          <input id="cf-exercise-form-increment" type="number" class="validate" min="0" max="10" step="0.25" required>
+          <label for="cf-exercise-form-increment">Increment</label>
           <span class="helper-text" data-error="Should be between 0 and 10 with steps of 0.25" data-success=""></span>
         </div>
         <div class="input-field col s12">
-          <input id="cf-weight" type="text" class="validate" min="1" max="999" step="0.25" required>
-          <label for="cf-weight">Weight</label>
+          <input id="cf-exercise-form-weight" type="number" class="validate" min="1" max="999" step="0.25" required>
+          <label for="cf-exercise-form-weight">Weight</label>
           <span class="helper-text" data-error="Should be between 1 and 999 with steps of 0.25" data-success=""></span>
         </div>
-        <div class="input-field col s12 center-align">
-          <button class="btn-small blue">Add</button>
+        <div class="cf-exercise-form-exists-buttons" style="display: none;">
+          <div class="input-field col s12 center-align">
+            <button class="btn-small blue cf-exercise-form-exists-buttons-update">Update</button>
+          </div>
+          <div class="input-field col s12 center-align">
+            <button class="btn-small red cf-exercise-form-exists-buttons-delete">Delete</button>
+          </div>
+        </div>
+        <div class="cf-exercise-form-new-buttons">
+          <div class="input-field col s12 center-align">
+            <button class="btn-small blue">Add</button>
+          </div>
         </div>
       </form>
     </div>
