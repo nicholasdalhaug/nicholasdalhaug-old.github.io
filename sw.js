@@ -2,7 +2,7 @@
 * Consider Workbox for pre-made service workers. 
 
 */
-const cfCache =   'cf-cache-v3';
+const cfCache =   'cf-cache-v4';
 
 const staticCacheAssets = [
   '/', 

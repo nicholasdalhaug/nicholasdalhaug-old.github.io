@@ -1,6 +1,7 @@
 /* VARIABLES */
 :root{
   --color-primary: #2196f3; /* Blue */
+  --color-darken: #1565c0; /* Blue darken 3 */
   --color-valid: #4caf50; /* Green */
   --color-invalid: #f44336; /* Red */
 }
