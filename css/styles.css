@@ -162,3 +162,63 @@ cf-overview-exercise-lists
 
 
 
+
+
+
+/* ROUTINES */
+.cf-routines-panels{
+  padding: 15px;
+}
+.cf-routines-names{
+  font-size: 1.5rem;
+}
+.cf-routines-settings{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

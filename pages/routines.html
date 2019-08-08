@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Custom Fit - Fallback</title>
+  <title>Custom Fit - Routines</title>
   
   <!-- materialize icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -51,7 +51,7 @@
         <i class="material-icons">menu</i>
       </a>
       
-      <a class="brand-logo" href="/">Fallback</a>
+      <a class="brand-logo" href="/">Routines</a>
       
       <ul class="right hide-on-med-and-down"> <!-- hide-on-med-and-down corresponds to disappearence of menu bars -->
         <li><a href="/pages/overview.html">Overview</a></li>
@@ -85,12 +85,58 @@
   <main class="container grey-text text-darken-1">
     
     <!-- CONTENT -->
-    <div class="center-align">
-      <h5>Content not available</h5>
-      <p>This page does not seem to be available. </p>
-      <a href="/pages/overview.html" class="btn-small blue cf-fallback-btns">Overview</a>
+    <div class="cf-preloaders center-align">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
     </div>
     
+    <div class="cf-routines">
+    
+    </div>
+    
+    <div class="cf-add-buttons center-align" style="display: none;">
+      <a class="btn-floating waves-effect waves-light blue cf-sidenav-triggers" data-target="cf-exercise-form">
+        <i class="material-icons">add</i>
+      </a>
+    </div>
+    
+    <div id="cf-routine-form" class="sidenav">
+      <form class="container section cf-forms row">
+        <h5>Routine</h5>
+        <div class="divider"></div>
+        <div class="input-field col s12">
+          <input id="cf-routine-form-name" type="text" class="validate" maxlength="99" required>
+          <label for="cf-routine-form-name">Name</label>
+          <span class="helper-text" data-error="Name must have length between 1 and 99" data-success=""></span>
+        </div>
+        <div class="input-field col s12">
+          
+        </div>
+        <div class="cf-exercise-form-exists-buttons" style="display: none;">
+          <div class="input-field col s12 center-align">
+            <button class="btn-small blue cf-exercise-form-exists-buttons-update">Update</button>
+          </div>
+          <div class="input-field col s12 center-align">
+            <button class="btn-small red cf-exercise-form-exists-buttons-delete">Delete</button>
+          </div>
+        </div>
+        <div class="cf-exercise-form-new-buttons">
+          <div class="input-field col s12 center-align">
+            <button class="btn-small blue">Add</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
   </main>
   
   
@@ -134,6 +180,9 @@
   <script src="/js/db.js"></script>
   <script src="/js/ui.js"></script>
   
+  
+  <!-- Page specific script -->
+  <script src="/js/routines.js"></script>
   
   
   

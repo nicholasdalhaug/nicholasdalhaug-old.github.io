@@ -27,13 +27,28 @@ db.enablePersistence()
 
 // function to get values from database.
 // * documentFunction(id, data) used for each document
+// Should this actually be synchronous and return a promise? Might use reduce as in: 
+// https://stackoverflow.com/questions/18983138/callback-after-all-asynchronous-foreach-callbacks-are-completed
+//function dbGetAll(collectionName, documentFunction){
+//  return db.collection(collectionName).get().then( snapshot => {
+//    snapshot.forEach( (doc) => {
+//      documentFunction(doc.id, doc.data());
+////      console.log(`${doc.id} => ${doc.data()}`);
+////      console.log(doc.data());
+//    });
+//  });
+//}
 function dbGetAll(collectionName, documentFunction){
   return db.collection(collectionName).get().then( snapshot => {
-    snapshot.forEach( (doc) => {
-      documentFunction(doc.id, doc.data());
-//      console.log(`${doc.id} => ${doc.data()}`);
-//      console.log(doc.data());
-    });
+    return snapshot.docs.reduce( (promiseChain, doc) => {
+      return promiseChain.then(() => {
+        return new Promise((resolve) => {
+          documentFunction(doc.id, doc.data()).then( ()=>{
+            resolve();
+          });
+        });
+      });
+    }, Promise.resolve());
   });
 }
 
